@@ -1,192 +1,22 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E8025870-13C9-44B2-9F31-3DD692E64B9B}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ConveyorBelt.Tooling</RootNamespace>
-    <AssemblyName>ConveyorBelt.Tooling</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="BeeHive, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\BeeHive-common.1.3.0\lib\net45\BeeHive.dll</HintPath>
-    </Reference>
-    <Reference Include="BeeHive.Azure, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\BeeHive.Azure.1.3.0\lib\net45\BeeHive.Azure.dll</HintPath>
-    </Reference>
-    <Reference Include="BeeHive.DataStructures, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\BeeHive.DataStructures.1.3.0\lib\net45\BeeHive.DataStructures.dll</HintPath>
-    </Reference>
-    <Reference Include="BeeHive.ServiceLocator.Windsor, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\BeeHive.ServiceLocator.Windsor.1.3.0\lib\net45\BeeHive.ServiceLocator.Windsor.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Core, Version=3.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Castle.Core.3.2.0\lib\net45\Castle.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Castle.Windsor, Version=3.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Castle.Windsor.3.2.1\lib\net45\Castle.Windsor.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Dapper, Version=1.40.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Dapper.1.42\lib\net45\Dapper.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Elasticsearch.Net, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Elasticsearch.Net.5.6.1\lib\net45\Elasticsearch.Net.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Azure.KeyVault.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Azure.KeyVault.Core.2.0.4\lib\net45\Microsoft.Azure.KeyVault.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Data.Edm, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Data.Edm.5.8.2\lib\net40\Microsoft.Data.Edm.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Data.OData, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Data.OData.5.8.2\lib\net40\Microsoft.Data.OData.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Data.Services.Client, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Data.Services.Client.5.8.2\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.ServiceBus, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\WindowsAzure.ServiceBus.3.4.1\lib\net45-full\Microsoft.ServiceBus.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ServiceBus.Messaging.EventProcessorHost, Version=0.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Azure.ServiceBus.EventProcessorHost.2.2.7\lib\net45-full\Microsoft.ServiceBus.Messaging.EventProcessorHost.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.WindowsAzure.ConfigurationManager.2.0.0.0\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Storage, Version=8.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\WindowsAzure.Storage.8.7.0\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Nest, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NEST.5.6.1\lib\net45\Nest.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="PerfIt, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\PerfIt.2.2.0\lib\net45\PerfIt.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.Services.Client" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http.WebRequest" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Spatial, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Spatial.5.8.2\lib\net40\System.Spatial.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Actors\BlobFileActor.cs" />
-    <Compile Include="Actors\BlobFileConventionActor.cs" />
-    <Compile Include="Actors\ShardKeyActor.cs" />
-    <Compile Include="Actors\ShardRangeActor.cs" />
-    <Compile Include="ConfigurationKeys.cs" />
-    <Compile Include="Configuration\ISourceConfiguration.cs" />
-    <Compile Include="Configuration\TableStorageConfigurationSource.cs" />
-    <Compile Include="DefaultHttpClient.cs" />
-    <Compile Include="DiagnosticsSourceSummary.cs" />
-    <Compile Include="ElasticsearchClient.cs" />
-    <Compile Include="Entities\InsightMetric.cs" />
-    <Compile Include="EventHub\EventHubConsumer.cs" />
-    <Compile Include="Events\BlobFileArrived.cs" />
-    <Compile Include="Events\BlobFileScheduled.cs" />
-    <Compile Include="Events\ShardKeyArrived.cs" />
-    <Compile Include="Events\ShardRangeArrived.cs" />
-    <Compile Include="FileOffset.cs" />
-    <Compile Include="Configuration\DiagnosticsSource.cs" />
-    <Compile Include="IElasticsearchClient.cs" />
-    <Compile Include="IHttpClient.cs" />
-    <Compile Include="IIndexNamer.cs" />
-    <Compile Include="IndexNamer.cs" />
-    <Compile Include="Internal\CloudBlobContainerExtensions.cs" />
-    <Compile Include="Internal\ConveyorBeltConstants.cs" />
-    <Compile Include="Internal\DateTimeOffsetExtensions.cs" />
-    <Compile Include="Internal\FactoryHelper.cs" />
-    <Compile Include="Internal\ServicePointHelper.cs" />
-    <Compile Include="Internal\SitecoreLogEntry.cs" />
-    <Compile Include="Internal\ParserHelper.cs" />
-    <Compile Include="Internal\SimpleFilter.cs" />
-    <Compile Include="Internal\TableEntityExtensions.cs" />
-    <Compile Include="ITempDownloadLocationProvider.cs" />
-    <Compile Include="NestBatchPusher.cs" />
-    <Compile Include="Parsing\AkamaiLogParser.cs" />
-    <Compile Include="Parsing\IisLogParser.cs" />
-    <Compile Include="Parsing\InsightMetricsParser.cs" />
-    <Compile Include="Parsing\IParser.cs" />
-    <Compile Include="Internal\SitecoreLogLineParser.cs" />
-    <Compile Include="Parsing\ParseCursor.cs" />
-    <Compile Include="Parsing\SitecoreLogParser.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Querying\IShardKeyQuery.cs" />
-    <Compile Include="Querying\SqlShardKeyQuery.cs" />
-    <Compile Include="Querying\TableStorageShardKeyQuery.cs" />
-    <Compile Include="Scheduling\BaseScheduler.cs" />
-    <Compile Include="Scheduling\D18MinuteTableShardScheduler.cs" />
-    <Compile Include="Scheduling\EventHubScheduler.cs" />
-    <Compile Include="Scheduling\IisBlobConventionScheduler.cs" />
-    <Compile Include="Scheduling\IisBlobScheduler.cs" />
-    <Compile Include="Scheduling\ISourceScheduler.cs" />
-    <Compile Include="Scheduling\MasterScheduler.cs" />
-    <Compile Include="Scheduling\MinuteTableShardScheduler.cs" />
-    <Compile Include="Scheduling\Modulo10MinuteTableShardScheduler.cs" />
-    <Compile Include="Scheduling\RangeShardKeyScheduler.cs" />
-    <Compile Include="Scheduling\ReverseTimestampMinuteTableShardScheduler.cs" />
-    <Compile Include="Scheduling\SimpleBlobScheduler.cs" />
-    <Compile Include="Telemetry\ITelemetryProvider.cs" />
-    <Compile Include="Telemetry\TelemetryProvider.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Dapper" Version="1.50.5" />
+        <PackageReference Include="Microsoft.Azure.ServiceBus" Version="3.0.2" />
+        <PackageReference Include="Microsoft.Azure.ServiceBus.EventProcessorHost" Version="3.1.5" />
+        <PackageReference Include="NEST" Version="5.6.2" />
+        <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+        <PackageReference Include="PerfIt" Version="5.0.2" />
+        <PackageReference Include="WindowsAzure.Storage" Version="9.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\BeeHive\src\BeeHive.Azure\BeeHive.Azure.csproj" />
+      <ProjectReference Include="..\..\..\BeeHive\src\BeeHive.DataStructures\BeeHive.DataStructures.csproj" />
+      <ProjectReference Include="..\..\..\BeeHive\src\BeeHive\BeeHive.csproj" />
+    </ItemGroup>
 </Project>

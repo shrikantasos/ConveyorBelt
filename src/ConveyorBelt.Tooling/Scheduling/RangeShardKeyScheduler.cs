@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BeeHive;
+using BeeHive.Azure;
 using BeeHive.Configuration;
 using BeeHive.DataStructures;
 using ConveyorBelt.Tooling.Configuration;
@@ -39,8 +40,8 @@ namespace ConveyorBelt.Tooling.Scheduling
             var client = account.CreateCloudTableClient();
             var table = client.GetTableReference(source.GetProperty<string>("TableName"));
 
-            var entities = table.ExecuteQuery(new TableQuery().Where(
-               TableQuery.GenerateFilterCondition("PartitionKey", "gt", source.LastOffsetPoint)));
+            var entities = table.ExecuteQueryAsync(new TableQuery<DynamicTableEntity>().Where(
+               TableQuery.GenerateFilterCondition("PartitionKey", "gt", source.LastOffsetPoint))).GetAwaiter().GetResult();
 
             foreach (var entity in entities)
             {

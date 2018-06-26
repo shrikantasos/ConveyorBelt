@@ -35,7 +35,7 @@ namespace ConveyorBelt.Tooling.Actors
 
         private Stream StreamFactory(CloudBlockBlob blob)
         {
-            return blob.OpenRead();
+            return blob.OpenReadAsync().GetAwaiter().GetResult();
         }
 
         public async Task<IEnumerable<Event>> ProcessAsync(Event evnt)

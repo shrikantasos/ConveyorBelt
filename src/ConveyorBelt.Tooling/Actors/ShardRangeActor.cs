@@ -45,11 +45,11 @@ namespace ConveyorBelt.Tooling.Actors
             var client = account.CreateCloudTableClient();
             var table = client.GetTableReference(shardKeyArrived.Source.DynamicProperties["TableName"].ToString());
 
-            var entities = table.ExecuteQuery(new TableQuery().Where(
+            var entities = table.ExecuteQueryAsync(new TableQuery<DynamicTableEntity>().Where(
                 TableQuery.CombineFilters(
                 TableQuery.GenerateFilterCondition("PartitionKey", "ge", shardKeyArrived.InclusiveStartKey), 
                 TableOperators.And,
-                TableQuery.GenerateFilterCondition("PartitionKey", "le", shardKeyArrived.InclusiveEndKey))));
+                TableQuery.GenerateFilterCondition("PartitionKey", "le", shardKeyArrived.InclusiveEndKey)))).GetAwaiter().GetResult();
 
 
             await _pusher.PushAll(entities, shardKeyArrived.Source);

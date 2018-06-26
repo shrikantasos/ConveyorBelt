@@ -9,9 +9,9 @@ namespace ConveyorBelt.Tooling.Telemetry
             return new SimpleInstrumentor(new InstrumentationInfo
             {
                 CategoryName = "ConveyorBelt",
-                Counters = new[] { CounterTypes.AverageTimeTaken },
+//                Counters = new[] { CounterTypes.AverageTimeTaken },
                 InstanceName = typeof(T).Name
-            }, false);
+            });
         }
 
         public void WriteTelemetry(string instanceName, long timeTakeMilli, string context)

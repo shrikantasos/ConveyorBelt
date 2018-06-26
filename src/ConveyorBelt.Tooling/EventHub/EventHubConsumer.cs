@@ -1,7 +1,6 @@
 ﻿using BeeHive;
 using ConveyorBelt.Tooling.Internal;
 using ConveyorBelt.Tooling.Parsing;
-using Microsoft.ServiceBus.Messaging;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -9,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.ServiceBus.Messaging;
 
 namespace ConveyorBelt.Tooling.EventHub
 {

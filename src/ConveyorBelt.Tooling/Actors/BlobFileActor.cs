@@ -65,7 +65,7 @@ namespace ConveyorBelt.Tooling.Actors
                 var uri = new Uri(blobFileArrived.BlobId);
                 var id = string.Join("", uri.Segments.Skip(2));
                 var blob = container.GetBlockBlobReference(id);
-                if (!blob.Exists())
+                if (!blob.ExistsAsync().GetAwaiter().GetResult())
                     throw new InvalidOperationException("Blob does not exist: " + id);
                 var stream = new MemoryStream();
                 await blob.DownloadToStreamAsync(stream);
@@ -84,7 +84,7 @@ namespace ConveyorBelt.Tooling.Actors
                         (long)(DateTimeOffset.UtcNow - minDateTime).TotalMilliseconds, 
                         blobFileArrived.Source.TypeName);
                 }
-            }, blobFileArrived.Source.TypeName);
+            }, extraContext: new InstrumentationContext { Text1 = blobFileArrived.Source.TypeName });
 
             return Enumerable.Empty<Event>();
         }

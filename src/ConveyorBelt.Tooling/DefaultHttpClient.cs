@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace ConveyorBelt.Tooling
 {
@@ -14,8 +15,9 @@ namespace ConveyorBelt.Tooling
 
         public DefaultHttpClient(IEnumerable<KeyValuePair<string, string>> defaultHeaders = null)
         {
-            var handler = new WebRequestHandler();
-            handler.ServerCertificateValidationCallback += (sender, certificate, chain, errors) => true; // accept any cert
+            var handler = new HttpClientHandler();
+
+            handler.ServerCertificateCustomValidationCallback += (sender, certificate, chain, errors) => true; // accept any cert
             _client = new HttpClient(handler);
             if (defaultHeaders != null)
             {
@@ -36,7 +38,8 @@ namespace ConveyorBelt.Tooling
 
         public Task<HttpResponseMessage> PutAsJsonAsync(string requestUri, string payload)
         {
-            return _client.PutAsJsonAsync(requestUri, payload);
+            /*JsonConvert.ToString if necessary ?*/
+            return _client.PutAsync(requestUri, new StringContent(payload, Encoding.UTF8, "application/json"));
         }
 
         public Task<HttpResponseMessage> PutAsync(string requestUri, HttpContent content)

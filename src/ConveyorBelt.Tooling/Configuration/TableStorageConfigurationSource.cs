@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BeeHive.Azure;
 using BeeHive.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
@@ -22,22 +23,23 @@ namespace ConveyorBelt.Tooling.Configuration
 
         public IEnumerable<DiagnosticsSource> GetSources()
         {
-            return _table.ExecuteQuery(new TableQuery<DynamicTableEntity>()).Select(x => new DiagnosticsSource(x));
+            return _table.ExecuteQueryAsync(new TableQuery<DynamicTableEntity>()).GetAwaiter().GetResult().Select(x => new DiagnosticsSource(x));
         }
 
         public void UpdateSource(DiagnosticsSource source)
         {
            // _table.Execute(TableOperation.InsertOrReplace(source.ToEntity()));
-            _table.Execute(TableOperation.Merge(source.ToEntity()));
+            _table.ExecuteAsync(TableOperation.Merge(source.ToEntity()));
         }
 
         public DiagnosticsSource RefreshSource(DiagnosticsSource source)
         {
-            var s = _table.ExecuteQuery(new TableQuery().Where(TableQuery.CombineFilters(
-                TableQuery.GenerateFilterCondition("PartitionKey", "eq", source.PartitionKey),
-                TableOperators.And,
-                TableQuery.GenerateFilterCondition("RowKey", "eq", source.RowKey)
-                ))).Single();
+            var s = _table.ExecuteQueryAsync(new TableQuery<DynamicTableEntity>().Where(
+                TableQuery.CombineFilters(
+                    TableQuery.GenerateFilterCondition("PartitionKey", "eq", source.PartitionKey),
+                    TableOperators.And,
+                    TableQuery.GenerateFilterCondition("RowKey", "eq", source.RowKey
+                )))).GetAwaiter().GetResult().Single();
             return new DiagnosticsSource(s);
         }
 
@@ -70,7 +72,7 @@ namespace ConveyorBelt.Tooling.Configuration
                         }
                         var client = account.CreateCloudTableClient();
                         _table = client.GetTableReference(configurationValueProvider.GetValue(ConfigurationKeys.TableName));
-                        _table.CreateIfNotExists();
+                        _table.CreateIfNotExistsAsync().GetAwaiter().GetResult();
                     }
                 }
             }        

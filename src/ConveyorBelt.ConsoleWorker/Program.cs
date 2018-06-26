@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
-using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using BeeHive;
@@ -113,7 +112,7 @@ namespace ConveyorBelt.ConsoleWorker
                     .LifestyleTransient(),
                 Component.For<MinuteTableShardScheduler>()
                     .ImplementedBy<MinuteTableShardScheduler>()
-                    .LifestyleTransient(),                
+                    .LifestyleTransient(),
                 Component.For<Modulo10MinuteTableShardScheduler>()
                     .ImplementedBy<Modulo10MinuteTableShardScheduler>()
                     .LifestyleTransient(),

@@ -121,3 +121,27 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Castle.Core" Version="4.3.0" />
+        <PackageReference Include="Castle.Windsor" Version="4.1.0" />
+        <PackageReference Include="Microsoft.Azure.Management.ServiceBus" Version="1.3.0" />
+        <PackageReference Include="Microsoft.Azure.ServiceBus" Version="3.0.2" />
+        <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+        <PackageReference Include="WindowsAzure.Storage" Version="9.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\BeeHive\src\BeeHive.Azure\BeeHive.Azure.csproj" />
+      <ProjectReference Include="..\..\..\BeeHive\src\BeeHive.DataStructures\BeeHive.DataStructures.csproj" />
+      <ProjectReference Include="..\..\..\BeeHive\src\BeeHive.ServiceLocator.Windsor\BeeHive.ServiceLocator.Windsor.csproj" />
+      <ProjectReference Include="..\..\..\BeeHive\src\BeeHive\BeeHive.csproj" />
+      <ProjectReference Include="..\ConveyorBelt.Tooling\ConveyorBelt.Tooling.csproj" />
+    </ItemGroup>
+
+</Project>

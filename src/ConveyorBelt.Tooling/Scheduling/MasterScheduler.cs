@@ -152,7 +152,7 @@ namespace ConveyorBelt.Tooling.Scheduling
 
                         source.ErrorMessage = string.Empty;
                         TheTrace.TraceInformation("MasterScheduler - Finished Scheduling {0}", source.ToTypeKey());
-                    }, source.ToTypeKey());
+                    }, extraContext: new InstrumentationContext {Text1 = source.ToTypeKey() });
                 }
                    
                 return source;

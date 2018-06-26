@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BeeHive;
+using BeeHive.Azure;
 using BeeHive.Configuration;
 using BeeHive.DataStructures;
 using ConveyorBelt.Tooling.Configuration;
@@ -47,7 +48,7 @@ namespace ConveyorBelt.Tooling.Scheduling
             FileOffset newOffset = null;
             var events = new List<Event>();
 
-            foreach (var blob in client.ListBlobs(blobPath).Where(itm => itm is CloudBlockBlob)
+            foreach (var blob in client.ListBlobsAsync(blobPath).GetAwaiter().GetResult().Where(itm => itm is CloudBlockBlob)
                     .Cast<CloudBlockBlob>().OrderBy(x => x.Properties.LastModified))
             {
                 if (blob.Properties.LastModified > offset.TimeOffset)

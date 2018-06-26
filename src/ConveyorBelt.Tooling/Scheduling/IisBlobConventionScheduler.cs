@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BeeHive;
+using BeeHive.Azure;
 using BeeHive.Configuration;
 using BeeHive.DataStructures;
 using ConveyorBelt.Tooling.Configuration;
@@ -62,7 +63,7 @@ namespace ConveyorBelt.Tooling.Scheduling
 
                 instanceIndex++;
                 TheTrace.TraceInformation("IisBlobConventionScheduler - Looking into {0}", path);
-                var any = client.ListBlobs(path).Any(itm => itm is CloudBlockBlob);
+                var any = client.ListBlobsAsync(path).GetAwaiter().GetResult().Any(itm => itm is CloudBlockBlob);
                 if (!any)
                     break;
 

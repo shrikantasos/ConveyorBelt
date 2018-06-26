@@ -15,8 +15,8 @@ namespace ConveyorBelt.Tooling.Internal
             var alternateId = alternateNamer(id);
             var blob = container.GetBlockBlobReference(id);
             var altblob = container.GetBlockBlobReference(alternateId);
-            var blobExists = blob.Exists();
-            var altblobExists = altblob.Exists();
+            var blobExists = blob.ExistsAsync().GetAwaiter().GetResult();
+            var altblobExists = altblob.ExistsAsync().GetAwaiter().GetResult();
             exists = blobExists || altblobExists;
             return altblobExists ? altblob : blob;
         }
