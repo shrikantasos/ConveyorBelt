@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using BeeHive.Configuration;
+using BeeHive.DataStructures;
 using ConveyorBelt.Tooling.Internal;
 using Elasticsearch.Net;
 using Microsoft.WindowsAzure.Storage.Table;

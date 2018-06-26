@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BeeHive.Azure;
 using BeeHive.Configuration;
 using Microsoft.WindowsAzure.Storage;
@@ -23,7 +21,7 @@ namespace ConveyorBelt.Tooling.Configuration
 
         public IEnumerable<DiagnosticsSource> GetSources()
         {
-            return _table.ExecuteQueryAsync(new TableQuery<DynamicTableEntity>()).GetAwaiter().GetResult().Select(x => new DiagnosticsSource(x));
+            return _table.ExecuteQuery(new TableQuery<DynamicTableEntity>()).Select(x => new DiagnosticsSource(x));
         }
 
         public void UpdateSource(DiagnosticsSource source)
@@ -34,12 +32,12 @@ namespace ConveyorBelt.Tooling.Configuration
 
         public DiagnosticsSource RefreshSource(DiagnosticsSource source)
         {
-            var s = _table.ExecuteQueryAsync(new TableQuery<DynamicTableEntity>().Where(
+            var s = _table.ExecuteQuery(new TableQuery<DynamicTableEntity>().Where(
                 TableQuery.CombineFilters(
                     TableQuery.GenerateFilterCondition("PartitionKey", "eq", source.PartitionKey),
                     TableOperators.And,
                     TableQuery.GenerateFilterCondition("RowKey", "eq", source.RowKey
-                )))).GetAwaiter().GetResult().Single();
+                )))).Single();
             return new DiagnosticsSource(s);
         }
 

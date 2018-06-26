@@ -40,8 +40,8 @@ namespace ConveyorBelt.Tooling.Scheduling
             var client = account.CreateCloudTableClient();
             var table = client.GetTableReference(source.GetProperty<string>("TableName"));
 
-            var entities = table.ExecuteQueryAsync(new TableQuery<DynamicTableEntity>().Where(
-               TableQuery.GenerateFilterCondition("PartitionKey", "gt", source.LastOffsetPoint))).GetAwaiter().GetResult();
+            var entities = table.ExecuteQuery(new TableQuery<DynamicTableEntity>().Where(
+               TableQuery.GenerateFilterCondition("PartitionKey", "gt", source.LastOffsetPoint)));
 
             foreach (var entity in entities)
             {

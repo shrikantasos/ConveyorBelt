@@ -55,7 +55,7 @@ namespace ConveyorBelt.Tooling.Scheduling
 
 
                 TheTrace.TraceInformation("IisBlobScheduler - Looking into {0}", path);
-                foreach (var blob in client.ListBlobsAsync(path).GetAwaiter().GetResult().Where(itm => itm is CloudBlockBlob)
+                foreach (var blob in client.ListBlobsAsync(path).Where(itm => itm is CloudBlockBlob)
                     .Cast<CloudBlockBlob>().OrderBy(x => x.Properties.LastModified))
                 {
                     if (blob.Properties.LastModified > offset.TimeOffset)

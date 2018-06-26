@@ -5,10 +5,12 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.ServiceBus.Messaging;
+using Microsoft.Azure.EventHubs;
+using Microsoft.Azure.EventHubs.Processor;
 
 namespace ConveyorBelt.Tooling.EventHub
 {
@@ -39,12 +41,12 @@ namespace ConveyorBelt.Tooling.EventHub
             _eventProcessorHost = new EventProcessorHost(
                 "ConveyorBelt",
                 source.DynamicProperties["EventHubName"].ToString(), 
-                EventHubConsumerGroup.DefaultGroupName, 
+                "$Default", 
                 source.ConnectionString, 
-                source.DynamicProperties["StorageConnectionString"].ToString());
+                source.DynamicProperties["StorageConnectionString"].ToString(),
+                source.DynamicProperties["EventHubName"].ToString());
 
             var options = new EventProcessorOptions();
-            options.ExceptionReceived += (sender, e) => { TheTrace.TraceError(e.Exception.ToString()); };
             _eventProcessorHost.RegisterEventProcessorFactoryAsync(this, options).Wait();
         }
 
@@ -86,11 +88,17 @@ namespace ConveyorBelt.Tooling.EventHub
                 return Task.FromResult(false);
             }
 
+            public Task ProcessErrorAsync(PartitionContext context, Exception error)
+            {
+                TheTrace.TraceError(error.ToString());
+                return Task.CompletedTask;
+            }
+
             public async Task ProcessEventsAsync(PartitionContext context, IEnumerable<EventData> messages)
             {
                 try
                 {
-                    var lazyEnumerable = messages.SelectMany(ev => _parser.Parse(ev.GetBodyStream, null, _source));
+                    var lazyEnumerable = messages.SelectMany(ev => _parser.Parse(() => new MemoryStream(ev.Body.Array, ev.Body.Offset, ev.Body.Count), null, _source));
                     await _elasticsearchBatchPusher.PushAll(lazyEnumerable, _source);
 
                     if (_timer.Elapsed > _checkpointInterval)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BeeHive;
+using BeeHive.Azure;
 using ConveyorBelt.Tooling.Events;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
@@ -39,7 +40,7 @@ namespace ConveyorBelt.Tooling.Querying
 
             var query = new TableQuery<DynamicTableEntity>().Where(TableQuery.GenerateFilterCondition("PartitionKey", "eq", shardKeyArrived.ShardKey));
 
-            return Task.FromResult(table.ExecuteQuery(query));
+            return Task.FromResult<IEnumerable<DynamicTableEntity>>(table.ExecuteQuery(query));
         }
     }
 }

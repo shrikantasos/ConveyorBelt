@@ -63,7 +63,7 @@ namespace ConveyorBelt.Tooling.Scheduling
 
                 instanceIndex++;
                 TheTrace.TraceInformation("IisBlobConventionScheduler - Looking into {0}", path);
-                var any = client.ListBlobsAsync(path).GetAwaiter().GetResult().Any(itm => itm is CloudBlockBlob);
+                var any = client.ListBlobsAsync(path).Any(itm => itm is CloudBlockBlob);
                 if (!any)
                     break;
 

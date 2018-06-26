@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BeeHive;
+using BeeHive.Azure;
 using ConveyorBelt.Tooling.Events;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
@@ -45,11 +46,11 @@ namespace ConveyorBelt.Tooling.Actors
             var client = account.CreateCloudTableClient();
             var table = client.GetTableReference(shardKeyArrived.Source.DynamicProperties["TableName"].ToString());
 
-            var entities = table.ExecuteQueryAsync(new TableQuery<DynamicTableEntity>().Where(
+            var entities = table.ExecuteQuery(new TableQuery<DynamicTableEntity>().Where(
                 TableQuery.CombineFilters(
                 TableQuery.GenerateFilterCondition("PartitionKey", "ge", shardKeyArrived.InclusiveStartKey), 
                 TableOperators.And,
-                TableQuery.GenerateFilterCondition("PartitionKey", "le", shardKeyArrived.InclusiveEndKey)))).GetAwaiter().GetResult();
+                TableQuery.GenerateFilterCondition("PartitionKey", "le", shardKeyArrived.InclusiveEndKey))));
 
 
             await _pusher.PushAll(entities, shardKeyArrived.Source);
