@@ -184,13 +184,13 @@ namespace ConveyorBelt.ConsoleWorker
         private static void Start()
         {
             Trace.TraceInformation("ConveyorBelt.Worker has been started");
-            Task.Run(() => _orchestrator.SetupAsync()).Wait();
+            Task.Run(() => _orchestrator.Setup()).Wait();
             _orchestrator.Start();
         }
 
         static void Stop()
         {
-            _orchestrator.Stop();  
+            _orchestrator.Stop();
             _cancellationTokenSource.Cancel();
         }
 

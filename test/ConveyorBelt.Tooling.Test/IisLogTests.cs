@@ -62,7 +62,7 @@ namespace ConveyorBelt.Tooling.Test
             Assert.Equal("6RD00155D4A0E2E", entities[0]["s-computername"]);
             Assert.Equal("GET", entities[0]["cs-method"]);
             Assert.Equal("store=US", entities[0]["cs-uri-query"]);
-            Assert.Equal(1, entities.Length);
+            Assert.Single(entities);
             Assert.Equal(GetRowKey(6), entities[0]["RowKey"]);
         }
 
@@ -80,7 +80,7 @@ namespace ConveyorBelt.Tooling.Test
             Assert.Equal("6RD00155D4A0E2E", entities[0]["s-computername"]);
             Assert.Equal("GET", entities[0]["cs-method"]);
             Assert.Equal("store=US", entities[0]["cs-uri-query"]);
-            Assert.Equal(1, entities.Length);
+            Assert.Single(entities);
             Assert.Equal(GetRowKey(6), entities[0]["RowKey"]);
         }
 
